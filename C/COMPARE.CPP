@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+void main()
+{
+		char str1[20], str2[20];
+		int n;
+		clrscr();
+		printf("Aapke mann ki khushi likhen: ");
+		gets(str1);
+		printf("Aapke mann ki peedha likhen: ");
+		gets(str2);
+		printf("%d",strcmp(str1,str2));
+		getch();
+}
