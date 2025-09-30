@@ -1,0 +1,13 @@
+CheckboxGroup cbg = new CheckboxGroup();
+male = new Checkbox("Male", cbg, false);
+female = new Checkbox("Female", cbg, false);
+add(male);add(female);
+cricket=new Checkbox("Cricket");
+badminton = new Checkbox("Badminton");
+b = new Button("Submit");
+b.addActionListener(this);
+setSize(500, 500);
+setLayout(null);
+cricket.setBounds(50, 50, 100, 50);
+badminton.setBounds(50,200,100,50);
+b.setbounts();
