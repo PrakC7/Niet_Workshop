@@ -5,14 +5,14 @@ import java.util.*;
 import java.awt.datatransfer.*;
 
 public class Notepad extends Frame implements ActionListener, KeyListener, MouseListener {
+
     TextArea textArea;
     Label statusBar;
     String currentFile = null;
     MenuItem newItem, openItem, saveItem, saveAsItem, exitItem;
     MenuItem cutItem, copyItem, pasteItem, selectAllItem, timeDateItem;
-    MenuItem zoomItem, wrapItem, statusBarItem;
-
-    boolean zoomed = false;
+    MenuItem wrapItem, statusBarItem;
+    MenuItem zoomInItem, zoomOutItem;
 
     public Notepad() {
         setTitle("Notepad");
@@ -62,15 +62,20 @@ public class Notepad extends Frame implements ActionListener, KeyListener, Mouse
         edit.addSeparator();
         edit.add(timeDateItem);
 
-        zoomItem = new MenuItem("Zoom");
+        Menu zoomMenu = new Menu("Zoom");
+        zoomInItem = new MenuItem("Zoom In");
+        zoomOutItem = new MenuItem("Zoom Out");
+        zoomInItem.addActionListener(this);
+        zoomOutItem.addActionListener(this);
+        zoomMenu.add(zoomInItem);
+        zoomMenu.add(zoomOutItem);
+
         wrapItem = new MenuItem("Word Wrap");
         statusBarItem = new MenuItem("Status Bar");
-
-        zoomItem.addActionListener(this);
         wrapItem.addActionListener(this);
         statusBarItem.addActionListener(this);
 
-        view.add(zoomItem);
+        view.add(zoomMenu);
         view.add(wrapItem);
         view.add(statusBarItem);
 
@@ -99,7 +104,6 @@ public class Notepad extends Frame implements ActionListener, KeyListener, Mouse
 
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-
         if (source == newItem) {
             textArea.setText("");
             currentFile = null;
@@ -155,14 +159,15 @@ public class Notepad extends Frame implements ActionListener, KeyListener, Mouse
         } else if (source == timeDateItem) {
             textArea.insert(new Date().toString(), textArea.getCaretPosition());
             updateStatusBar();
-        } else if (source == zoomItem) {
-            if (!zoomed) {
-                textArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
-                zoomed = true;
-            } else {
-                textArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
-                zoomed = false;
-            }
+        } else if (source == zoomInItem) {
+            Font currentFont = textArea.getFont();
+            int newSize = currentFont.getSize() + 2;
+            textArea.setFont(new Font(currentFont.getName(), currentFont.getStyle(), newSize));
+        } else if (source == zoomOutItem) {
+            Font currentFont = textArea.getFont();
+            int newSize = currentFont.getSize() - 2;
+            if (newSize < 8) newSize = 8;
+            textArea.setFont(new Font(currentFont.getName(), currentFont.getStyle(), newSize));
         } else if (source == wrapItem) {
             showError("Word wrap is not supported in AWT TextArea.");
         } else if (source == statusBarItem) {
