@@ -1,0 +1,7 @@
+1.create a simple form to submit user input like his name,age,address and 
+
+2.add new form elemnets such as radio button, check boxes and password fiekd.
+add a submi t button ar last.
+3.add css property asign a style or beahavior to an html element such as : coljor,border madrgin and fornt style;
+4.add to style text elements with font,size,and color in css
+5.applying a block element in css acquires up the full width available for that content.
